@@ -2211,6 +2211,9 @@ void print_hash_tests(void)
 	hmq17hash(&hash[0], &buf[0]);
 	printpfx("hmq1725", hash);
 
+	hsr_hash(&hash[0], &buf[0]);
+        printpfx("hsr", hash);
+
 	jha_hash(&hash[0], &buf[0]);
 	printpfx("jha", hash);
 
@@ -2244,6 +2247,12 @@ void print_hash_tests(void)
 
 	pentablakehash(&hash[0], &buf[0]);
 	printpfx("pentablake", hash);
+
+	phihash(&hash[0], &buf[0]);
+	printpfx("phi", hash);
+
+	polytimos_hash(&hash[0], &buf[0]);
+	printpfx("polytimos", hash);
 
 	quarkhash(&hash[0], &buf[0]);
 	printpfx("quark", hash);

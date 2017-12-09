@@ -16,9 +16,11 @@ static uint64_t* d_matrix[MAX_GPUS];
 extern void blake256_cpu_init(int thr_id, uint32_t threads);
 extern void blake256_cpu_hash_80(const int thr_id, const uint32_t threads, const uint32_t startNonce, uint64_t *Hash, int order);
 extern void blake256_cpu_setBlock_80(uint32_t *pdata);
-extern void keccak256_cpu_hash_32(int thr_id, uint32_t threads, uint32_t startNonce, uint64_t *d_outputHash, int order);
-extern void keccak256_cpu_init(int thr_id, uint32_t threads);
-extern void keccak256_cpu_free(int thr_id);
+
+extern void keccak256_sm3_hash_32(int thr_id, uint32_t threads, uint32_t startNonce, uint64_t *d_outputHash, int order);
+extern void keccak256_sm3_init(int thr_id, uint32_t threads);
+extern void keccak256_sm3_free(int thr_id);
+
 extern void skein256_cpu_hash_32(int thr_id, uint32_t threads, uint32_t startNonce, uint64_t *d_outputHash, int order);
 extern void skein256_cpu_init(int thr_id, uint32_t threads);
 extern void cubehash256_cpu_hash_32(int thr_id, uint32_t threads, uint32_t startNounce, uint64_t *d_hash, int order);
@@ -125,7 +127,7 @@ extern "C" int scanhash_lyra2v2(int thr_id, struct work* work, uint32_t max_nonc
 		else if (strstr(props.name, "950")) intensity = 19;
 		else if (strstr(props.name, "750 Ti")) intensity = 19;
 		else if (strstr(props.name, "750")) intensity = 18;
-		// KeplerÅ`Fermi
+		// Kepler¬Å`Fermi
 		else if (strstr(props.name, "780")) intensity = 19;
 		else if (strstr(props.name, "760")) intensity = 18;
 		else if (strstr(props.name, "740")) intensity = 16;
@@ -149,17 +151,17 @@ extern "C" int scanhash_lyra2v2(int thr_id, struct work* work, uint32_t max_nonc
 		else if (strstr(props.name, "Tesla M40")) intensity = 21;
 		else if (strstr(props.name, "Tesla M4")) intensity = 20;
 		// Quadro series
-		else if (strstr(props.name, "P6000")) intensity = 22;	// Å‡Nvidia TITAN X
-		else if (strstr(props.name, "P5000")) intensity = 22;	// Å‡GTX 1080
-		else if (strstr(props.name, "M6000")) intensity = 21;	// Å‡GTX TITAN X
-		else if (strstr(props.name, "M5000")) intensity = 21;	// Å‡GTX 980
-		else if (strstr(props.name, "M4000")) intensity = 20;	// Å‡GTX 970
-		else if (strstr(props.name, "M2000")) intensity = 19;	// Å‡GTX 950
-		else if (strstr(props.name, "K6000")) intensity = 19;	// Å‡GTX 780Ti
-		else if (strstr(props.name, "K5200")) intensity = 19;	// Å‡GTX 780
-		else if (strstr(props.name, "K5000")) intensity = 18;	// Å‡GTX 770
-		else if (strstr(props.name, "K600")) intensity = 15;	// Å‡GTX 740 Half
-		else if (strstr(props.name, "K420")) intensity = 15;	// Å‡GTX 740 Half
+		else if (strstr(props.name, "P6000")) intensity = 22;	// ¬Å√†Nvidia TITAN X
+		else if (strstr(props.name, "P5000")) intensity = 22;	// ¬Å√†GTX 1080
+		else if (strstr(props.name, "M6000")) intensity = 21;	// ¬Å√†GTX TITAN X
+		else if (strstr(props.name, "M5000")) intensity = 21;	// ¬Å√†GTX 980
+		else if (strstr(props.name, "M4000")) intensity = 20;	// ¬Å√†GTX 970
+		else if (strstr(props.name, "M2000")) intensity = 19;	// ¬Å√†GTX 950
+		else if (strstr(props.name, "K6000")) intensity = 19;	// ¬Å√†GTX 780Ti
+		else if (strstr(props.name, "K5200")) intensity = 19;	// ¬Å√†GTX 780
+		else if (strstr(props.name, "K5000")) intensity = 18;	// ¬Å√†GTX 770
+		else if (strstr(props.name, "K600")) intensity = 15;	// ¬Å√†GTX 740 Half
+		else if (strstr(props.name, "K420")) intensity = 15;	// ¬Å√†GTX 740 Half
 
 		else if (strstr(props.name, "90")) intensity = 18;	//590
 		else if (strstr(props.name, "80")) intensity = 18;	//480 580
@@ -195,7 +197,7 @@ extern "C" int scanhash_lyra2v2(int thr_id, struct work* work, uint32_t max_nonc
 		gpulog(LOG_INFO, thr_id, "Intensity set to %g, %u cuda threads", throughput2intensity(throughput_buf), throughput);
 
 		blake256_cpu_init(thr_id, throughput);
-		keccak256_cpu_init(thr_id,throughput);
+		keccak256_sm3_init(thr_id,throughput);
 		skein256_cpu_init(thr_id, throughput);
 		bmw256_cpu_init(thr_id, throughput);
 #else
@@ -249,6 +251,7 @@ extern "C" int scanhash_lyra2v2(int thr_id, struct work* work, uint32_t max_nonc
 #else
 		blakeKeccak256_cpu_hash_80(thr_id, throughput, pdata[19], d_hash[thr_id], order++);
 #endif
+
 		cubehash256_cpu_hash_32(thr_id, throughput, pdata[19], d_hash[thr_id], order++);
 		lyra2v2_cpu_hash_32(thr_id, throughput, pdata[19], d_hash[thr_id], order++);
 		skein256_cpu_hash_32(thr_id, throughput, pdata[19], d_hash[thr_id], order++);
@@ -313,7 +316,7 @@ extern "C" void free_lyra2v2(int thr_id)
 	cudaFree(d_matrix[thr_id]);
 
 	bmw256_cpu_free(thr_id);
-	keccak256_cpu_free(thr_id);
+	keccak256_sm3_free(thr_id);
 
 	init[thr_id] = false;
 

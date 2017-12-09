@@ -59,12 +59,14 @@ void algo_free_all(int thr_id)
 	free_cryptonight(thr_id);
 	free_decred(thr_id);
 	free_deep(thr_id);
+	free_equihash(thr_id);
 	free_keccak256(thr_id);
 	free_fresh(thr_id);
 	free_fugue256(thr_id);
 	free_groestlcoin(thr_id);
 	free_heavy(thr_id);
 	free_hmq17(thr_id);
+	free_hsr(thr_id);
 	free_jackpot(thr_id);
 	free_jha(thr_id);
 	free_lbry(thr_id);
@@ -76,6 +78,8 @@ void algo_free_all(int thr_id)
 	free_neoscrypt(thr_id);
 	free_nist5(thr_id);
 	free_pentablake(thr_id);
+	free_phi(thr_id);
+	free_polytimos(thr_id);
 	free_quark(thr_id);
 	free_qubit(thr_id);
 	free_skeincoin(thr_id);
@@ -123,13 +127,13 @@ bool bench_algo_switch_next(int thr_id)
 	if (algo == ALGO_DMD_GR) algo++; // same as groestl
 	if (algo == ALGO_HEAVY) algo++; // dead
 	if (algo == ALGO_MJOLLNIR) algo++; // same as heavy
+	if (algo == ALGO_KECCAKC) algo++; // same as keccak
 	if (algo == ALGO_WHIRLCOIN) algo++; // same as whirlpool
 	if (algo == ALGO_WHIRLPOOLX) algo++; // disabled
 	// todo: algo switch from RPC 2.0
 	if (algo == ALGO_CRYPTOLIGHT) algo++;
 	if (algo == ALGO_CRYPTONIGHT) algo++;
 	if (algo == ALGO_WILDKECCAK) algo++;
-	//if (algo == ALGO_JACKPOT) algo++; // to fix
 	if (algo == ALGO_QUARK) algo++; // to fix
 	if (algo == ALGO_LBRY && CUDART_VERSION < 7000) algo++;
 
@@ -137,7 +141,6 @@ bool bench_algo_switch_next(int thr_id)
 		// incompatible SM 2.1 kernels...
 		if (algo == ALGO_GROESTL) algo++;
 		if (algo == ALGO_MYR_GR) algo++;
-		//if (algo == ALGO_JACKPOT) algo++; // compact shuffle
 		if (algo == ALGO_NEOSCRYPT) algo++;
 		if (algo == ALGO_WHIRLPOOLX) algo++;
 	}

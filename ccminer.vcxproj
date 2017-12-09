@@ -331,6 +331,7 @@
     <ClCompile Include="sph\hamsi.c" />
     <ClCompile Include="sph\hamsi_helper.c" />
     <ClCompile Include="sph\whirlpool.c" />
+    <ClCompile Include="x13\sm3.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="compat.h" />
@@ -474,7 +475,8 @@
     <CudaCompile Include="Algo256\cuda_cubehash256.cu" />
     <CudaCompile Include="Algo256\cuda_fugue256.cu" />
     <CudaCompile Include="Algo256\cuda_groestl256.cu" />
-    <CudaCompile Include="Algo256\cuda_keccak256.cu">
+    <CudaCompile Include="Algo256\cuda_keccak256.cu" />
+    <CudaCompile Include="Algo256\cuda_keccak256_sm3.cu">
       <MaxRegCount>92</MaxRegCount>
     </CudaCompile>
     <CudaCompile Include="Algo256\cuda_skein256.cu" />
@@ -526,6 +528,7 @@
     <CudaCompile Include="lyra2\lyra2Z.cu" />
     <CudaCompile Include="lyra2\cuda_lyra2Z.cu" />
     <ClInclude Include="lyra2\cuda_lyra2Z_sm5.cuh" />
+    <CudaCompile Include="polytimos.cu" />
     <CudaCompile Include="sia\sia.cu" />
     <CudaCompile Include="skein.cu">
       <MaxRegCount>64</MaxRegCount>
@@ -539,7 +542,11 @@
       <MaxRegCount>64</MaxRegCount>
     </CudaCompile>
     <CudaCompile Include="skunk\cuda_skunk_streebog.cu" />
-    <CudaCompile Include="tribus.cu" />
+    <ClInclude Include="tribus\cuda_echo512_aes.cuh" />
+    <CudaCompile Include="tribus\cuda_echo512_final.cu">
+      <CodeGeneration>compute_50,sm_50;compute_52,sm_52</CodeGeneration>
+    </CudaCompile>
+    <CudaCompile Include="tribus\tribus.cu" />
     <ClInclude Include="x11\cuda_x11_aes.cuh" />
     <CudaCompile Include="x11\cuda_x11_cubehash512.cu" />
     <CudaCompile Include="x11\cuda_x11_echo.cu">
@@ -556,8 +563,10 @@
       <MaxRegCount>64</MaxRegCount>
     </CudaCompile>
     <CudaCompile Include="x11\cuda_streebog.cu" />
+    <CudaCompile Include="x11\cuda_streebog_maxwell.cu" />
     <CudaCompile Include="x11\c11.cu" />
     <CudaCompile Include="x11\fresh.cu" />
+    <CudaCompile Include="x11\phi.cu" />
     <CudaCompile Include="x11\sib.cu" />
     <CudaCompile Include="x11\s3.cu" />
     <CudaCompile Include="x11\timetravel.cu" />
@@ -571,6 +580,8 @@
     <CudaCompile Include="x13\cuda_x13_fugue512.cu">
     </CudaCompile>
     <CudaCompile Include="x13\x13.cu" />
+    <CudaCompile Include="x13\cuda_hsr_sm3.cu" />
+    <CudaCompile Include="x13\hsr.cu" />
     <CudaCompile Include="x15\x14.cu" />
     <CudaCompile Include="x15\cuda_x14_shabal512.cu" />
     <CudaCompile Include="x15\cuda_x15_whirlpool.cu" />

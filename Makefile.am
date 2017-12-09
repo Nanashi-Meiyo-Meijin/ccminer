@@ -40,7 +40,8 @@ ccminer_SOURCES	= elist.h miner.h compat.h \
 		          lyra2/lyra2REv2.cu lyra2/cuda_lyra2v2.cu \
 			  lyra2/Lyra2Z.c lyra2/lyra2Z.cu lyra2/cuda_lyra2Z.cu \
 			  Algo256/cuda_bmw256.cu Algo256/cuda_cubehash256.cu \
-			  Algo256/cuda_blake256.cu Algo256/cuda_groestl256.cu Algo256/cuda_keccak256.cu Algo256/cuda_skein256.cu \
+			  Algo256/cuda_blake256.cu Algo256/cuda_groestl256.cu \
+			  Algo256/cuda_keccak256_sm3.cu Algo256/cuda_keccak256.cu Algo256/cuda_skein256.cu \
 			  Algo256/blake256.cu Algo256/decred.cu Algo256/vanilla.cu Algo256/keccak256.cu \
 			  Algo256/blake2s.cu sph/blake2s.c \
 			  Algo256/bmw.cu Algo256/cuda_bmw.cu \
@@ -64,16 +65,19 @@ ccminer_SOURCES	= elist.h miner.h compat.h \
 			  sph/hamsi.c sph/hamsi_helper.c sph/streebog.c \
 			  sph/shabal.c sph/whirlpool.c sph/sha2big.c sph/haval.c \
 			  sph/ripemd.c sph/sph_sha2.c \
+			  polytimos.cu \
 			  lbry/lbry.cu lbry/cuda_sha256_lbry.cu lbry/cuda_sha512_lbry.cu lbry/cuda_lbry_merged.cu \
 			  qubit/qubit.cu qubit/qubit_luffa512.cu qubit/deep.cu qubit/luffa.cu \
-			  tribus.cu \
+			  tribus/tribus.cu tribus/cuda_echo512_final.cu \
 			  x11/x11.cu x11/fresh.cu x11/cuda_x11_luffa512.cu x11/cuda_x11_cubehash512.cu \
 			  x11/cuda_x11_shavite512.cu x11/cuda_x11_simd512.cu x11/cuda_x11_echo.cu \
 			  x11/cuda_x11_luffa512_Cubehash.cu x11/x11evo.cu x11/timetravel.cu x11/bitcore.cu \
 			  x13/x13.cu x13/cuda_x13_hamsi512.cu x13/cuda_x13_fugue512.cu \
+			  x13/hsr.cu x13/cuda_hsr_sm3.cu x13/sm3.c \
 			  x15/x14.cu x15/x15.cu x15/cuda_x14_shabal512.cu x15/cuda_x15_whirlpool.cu \
 			  x15/whirlpool.cu x15/cuda_x15_whirlpool_sm3.cu \
 			  x17/x17.cu x17/hmq17.cu x17/cuda_x17_haval256.cu x17/cuda_x17_sha512.cu \
+			  x11/phi.cu x11/cuda_streebog_maxwell.cu \
 			  x11/c11.cu x11/s3.cu x11/sib.cu x11/veltor.cu x11/cuda_streebog.cu
 
 # scrypt

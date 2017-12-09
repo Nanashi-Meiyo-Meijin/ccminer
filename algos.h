@@ -22,7 +22,9 @@ enum sha_algos {
 	ALGO_GROESTL,
 	ALGO_HEAVY,		/* Heavycoin hash */
 	ALGO_HMQ1725,
+	ALGO_HSR,
 	ALGO_KECCAK,
+	ALGO_KECCAKC,		/* refreshed Keccak with pool factor 256 */
 	ALGO_JACKPOT,
 	ALGO_JHA,
 	ALGO_LBRY,
@@ -35,6 +37,8 @@ enum sha_algos {
 	ALGO_NEOSCRYPT,
 	ALGO_NIST5,
 	ALGO_PENTABLAKE,
+	ALGO_PHI,
+	ALGO_POLYTIMOS,
 	ALGO_QUARK,
 	ALGO_QUBIT,
 	ALGO_SCRYPT,
@@ -87,7 +91,9 @@ static const char *algo_names[] = {
 	"groestl",
 	"heavy",
 	"hmq1725",
+	"hsr",
 	"keccak",
+	"keccakc",
 	"jackpot",
 	"jha",
 	"lbry",
@@ -100,6 +106,8 @@ static const char *algo_names[] = {
 	"neoscrypt",
 	"nist5",
 	"penta",
+	"phi",
+	"polytimos",
 	"quark",
 	"qubit",
 	"scrypt",
@@ -161,12 +169,14 @@ static inline int algo_to_int(char* arg)
 			i = ALGO_LUFFA;
 		else if (!strcasecmp("hmq17", arg))
 			i = ALGO_HMQ1725;
-		//else if (!strcasecmp("jackpot", arg))
-		//	i = ALGO_JHA;
+		else if (!strcasecmp("hshare", arg))
+			i = ALGO_HSR;
 		else if (!strcasecmp("lyra2re", arg))
 			i = ALGO_LYRA2;
 		else if (!strcasecmp("lyra2rev2", arg))
 			i = ALGO_LYRA2v2;
+		else if (!strcasecmp("phi1612", arg))
+			i = ALGO_PHI;
 		else if (!strcasecmp("bitcoin", arg))
 			i = ALGO_SHA256D;
 		else if (!strcasecmp("sha256", arg))
